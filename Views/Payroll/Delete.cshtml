@@ -1,0 +1,38 @@
+@model TechCore.Models.PayrollTransaction
+
+@{
+    ViewData["Title"] = "Delete Payroll";
+}
+
+<div class="page-panel reveal-up mb-3">
+    <p class="page-kicker">Danger Zone</p>
+    <h1 class="h3 mb-1">Delete Payroll Record</h1>
+    <p class="page-subtitle">Confirm transaction details before removing this payroll entry.</p>
+</div>
+
+<div class="danger-panel p-3 p-md-4 reveal-up">
+    <div class="alert alert-warning">Are you sure you want to delete this payroll record?</div>
+
+    <dl class="row mb-3">
+        <dt class="col-sm-3">Payroll ID</dt>
+        <dd class="col-sm-9">@Model.PayrollTransactionId</dd>
+        <dt class="col-sm-3">Employee</dt>
+        <dd class="col-sm-9">@Model.Employee?.FullName</dd>
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.Date.ToString("yyyy-MM-dd")</dd>
+        <dt class="col-sm-3">Days Worked</dt>
+        <dd class="col-sm-9">@Model.DaysWorked</dd>
+        <dt class="col-sm-3">Gross Pay</dt>
+        <dd class="col-sm-9">@Model.GrossPay.ToString("C")</dd>
+        <dt class="col-sm-3">Deduction</dt>
+        <dd class="col-sm-9">@Model.Deduction.ToString("C")</dd>
+        <dt class="col-sm-3">Net Pay</dt>
+        <dd class="col-sm-9">@Model.NetPay.ToString("C")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post" class="d-flex gap-2">
+        <input type="hidden" asp-for="PayrollTransactionId" />
+        <button type="submit" class="btn btn-danger">Delete Record</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+    </form>
+</div>

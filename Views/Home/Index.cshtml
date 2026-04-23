@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="p-4 p-md-5 mb-4 rounded-3 hero-panel text-white">
+    <div class="col-lg-8 px-0">
+        <span class="eyebrow mb-3">Central Operations</span>
+        <h1 class="display-5 fw-bold">Employee Management and Payroll System</h1>
+        <p class="lead my-3">Manage employee records, process payroll transactions, and review salary computations from one focused workspace built for speed and clarity.</p>
+        <div class="d-flex gap-2 flex-wrap">
+            <a class="btn btn-light btn-lg" asp-controller="Employees" asp-action="Index">Manage Employees</a>
+            <a class="btn btn-outline-light btn-lg" asp-controller="Payroll" asp-action="Index">View Payroll</a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+        <div class="feature-card p-4">
+            <div class="feature-icon mb-3">01</div>
+            <p class="feature-tag mb-2">People</p>
+            <div class="card-body">
+                <h5 class="card-title">Employee Module</h5>
+                <p class="card-text">Create, edit, delete, and review employee records with department, position, and daily rate details.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="feature-card p-4">
+            <div class="feature-icon mb-3">02</div>
+            <p class="feature-tag mb-2">Payments</p>
+            <div class="card-body">
+                <h5 class="card-title">Payroll Module</h5>
+                <p class="card-text">Capture payroll entries per employee and track transaction history across pay periods.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="feature-card p-4">
+            <div class="feature-icon mb-3">03</div>
+            <p class="feature-tag mb-2">Accuracy</p>
+            <div class="card-body">
+                <h5 class="card-title">Auto Computation</h5>
+                <p class="card-text">Gross pay and net pay are computed automatically from days worked, daily rate, and deductions.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="feature-card p-4 p-lg-5">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="h4 mb-3">Smooth Daily Workflow</h2>
+                    <p class="text-muted mb-0">Keep your process consistent by following a simple cycle: update employee data, add payroll entries, then verify totals from history before cutoff.</p>
+                </div>
+                <div class="col-lg-5">
+                    <ol class="quick-list text-muted">
+                        <li>Maintain employee records and rates.</li>
+                        <li>Create payroll transactions per pay period.</li>
+                        <li>Review deductions and net pay trends.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

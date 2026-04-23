@@ -1,0 +1,120 @@
+@model TechCore.ViewModels.PayrollFormViewModel
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "Edit Payroll";
+}
+
+<div class="page-panel reveal-up mb-3">
+    <p class="page-kicker">Payroll Processing</p>
+    <h1 class="h3 mb-1">Edit Payroll</h1>
+    <p class="page-subtitle">Adjust transaction details while monitoring gross and net totals instantly.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8 reveal-up">
+        <div class="action-card p-3 p-md-4">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="PayrollTransactionId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="EmployeeId" class="form-label"></label>
+                        <select asp-for="EmployeeId" class="form-select" asp-items="Model.Employees">
+                            <option value="">Select employee</option>
+                        </select>
+                        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        @if (!string.IsNullOrWhiteSpace(Model.EmployeeName))
+                        {
+                            <div class="form-text">Current employee: @Model.EmployeeName</div>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Date" class="form-label"></label>
+                        <input asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="DaysWorked" class="form-label"></label>
+                        <input asp-for="DaysWorked" class="form-control" />
+                        <span asp-validation-for="DaysWorked" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Deduction" class="form-label"></label>
+                        <input asp-for="Deduction" class="form-control" />
+                        <span asp-validation-for="Deduction" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="GrossPay" class="form-label"></label>
+                        <input asp-for="GrossPay" class="form-control" readonly />
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NetPay" class="form-label"></label>
+                        <input asp-for="NetPay" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-4 reveal-up">
+        <div class="action-card p-3 p-md-4 h-100">
+            <h2 class="h6 mb-3">Computed Overview</h2>
+            <div class="d-grid gap-2">
+                <div class="value-display">
+                    <p class="value-label">Gross Pay</p>
+                    <p class="value-amount" id="grossPayPreview">0.00</p>
+                </div>
+                <div class="value-display">
+                    <p class="value-label">Net Pay</p>
+                    <p class="value-amount" id="netPayPreview">0.00</p>
+                </div>
+            </div>
+            <p class="form-note mt-3 mb-0">Use this preview to quickly verify updates before saving the record.</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            const rates = @Html.Raw(ViewBag.EmployeeRates ?? "{}");
+            const employeeInput = document.getElementById("EmployeeId");
+            const daysWorkedInput = document.getElementById("DaysWorked");
+            const deductionInput = document.getElementById("Deduction");
+            const grossPayInput = document.getElementById("GrossPay");
+            const netPayInput = document.getElementById("NetPay");
+            const grossPayPreview = document.getElementById("grossPayPreview");
+            const netPayPreview = document.getElementById("netPayPreview");
+
+            function toNumber(value) {
+                const parsed = Number(value);
+                return Number.isFinite(parsed) ? parsed : 0;
+            }
+
+            function updatePayrollValues() {
+                const employeeId = toNumber(employeeInput.value);
+                const dailyRate = toNumber(rates[String(employeeId)]);
+                const daysWorked = Math.max(0, toNumber(daysWorkedInput.value));
+                const deduction = Math.max(0, toNumber(deductionInput.value));
+                const grossPay = daysWorked * dailyRate;
+                const netPay = grossPay - deduction;
+
+                grossPayInput.value = grossPay.toFixed(2);
+                netPayInput.value = netPay.toFixed(2);
+                grossPayPreview.textContent = grossPay.toFixed(2);
+                netPayPreview.textContent = netPay.toFixed(2);
+            }
+
+            employeeInput.addEventListener("change", updatePayrollValues);
+            daysWorkedInput.addEventListener("input", updatePayrollValues);
+            deductionInput.addEventListener("input", updatePayrollValues);
+
+            updatePayrollValues();
+        })();
+    </script>
+}

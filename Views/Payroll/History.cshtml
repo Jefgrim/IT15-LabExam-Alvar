@@ -1,0 +1,60 @@
+@model IEnumerable<TechCore.Models.PayrollTransaction>
+
+@{
+    ViewData["Title"] = "Payroll History";
+    var itemCount = Model.Count();
+}
+
+<div class="page-panel reveal-up mb-3">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+            <p class="page-kicker">Transaction Log</p>
+            <h1 class="h3 mb-1">Payroll History</h1>
+            <p class="page-subtitle">@ViewBag.EmployeeName</p>
+        </div>
+        <div class="metric-chip-row">
+            <span class="metric-chip"><strong>@itemCount</strong> entries</span>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mb-3 reveal-up">
+    <div>
+        <a class="btn btn-outline-secondary" asp-action="Index">Back to Payroll</a>
+    </div>
+</div>
+
+<div class="table-responsive reveal-up">
+    <table class="table table-striped table-hover tc-table align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Payroll ID</th>
+                <th>Date</th>
+                <th>Days Worked</th>
+                <th>Gross Pay</th>
+                <th>Deduction</th>
+                <th>Net Pay</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var payroll in Model)
+        {
+            <tr>
+                <td>@payroll.PayrollTransactionId</td>
+                <td>@payroll.Date.ToString("yyyy-MM-dd")</td>
+                <td>@payroll.DaysWorked</td>
+                <td>@payroll.GrossPay.ToString("C")</td>
+                <td>@payroll.Deduction.ToString("C")</td>
+                <td>@payroll.NetPay.ToString("C")</td>
+                <td class="text-end">
+                    <div class="button-cluster">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@payroll.PayrollTransactionId">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@payroll.PayrollTransactionId">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
