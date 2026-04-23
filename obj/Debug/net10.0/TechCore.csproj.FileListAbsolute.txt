@@ -372,3 +372,4 @@ C:\it15\TechCore2\obj\Debug\net10.0\compressed\gz8fddgh0c-{0}-ieoioegvmu-ieoioeg
 C:\it15\TechCore2\obj\Debug\net10.0\compressed\a65pjgr8y3-{0}-0xjfu836cu-0xjfu836cu.gz
 C:\it15\TechCore2\obj\Debug\net10.0\compressed\s40mnqquw9-{0}-9k3itwfsxo-9k3itwfsxo.gz
 C:\it15\TechCore2\obj\Debug\net10.0\compressed\tc8ohjugyk-{0}-9k3itwfsxo-9k3itwfsxo.gz
+C:\it15\TechCore2\obj\Debug\net10.0\TechCore.sourcelink.json

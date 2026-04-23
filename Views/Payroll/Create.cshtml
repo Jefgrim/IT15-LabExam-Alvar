@@ -39,14 +39,6 @@
                         <input asp-for="Deduction" class="form-control" />
                         <span asp-validation-for="Deduction" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6">
-                        <label asp-for="GrossPay" class="form-label"></label>
-                        <input asp-for="GrossPay" class="form-control" readonly />
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="NetPay" class="form-label"></label>
-                        <input asp-for="NetPay" class="form-control" readonly />
-                    </div>
                 </div>
                 <div class="mt-4 d-flex gap-2">
                     <button type="submit" class="btn btn-primary">Save Payroll Record</button>
@@ -81,8 +73,6 @@
             const employeeInput = document.getElementById("EmployeeId");
             const daysWorkedInput = document.getElementById("DaysWorked");
             const deductionInput = document.getElementById("Deduction");
-            const grossPayInput = document.getElementById("GrossPay");
-            const netPayInput = document.getElementById("NetPay");
             const grossPayPreview = document.getElementById("grossPayPreview");
             const netPayPreview = document.getElementById("netPayPreview");
 
@@ -99,8 +89,6 @@
                 const grossPay = daysWorked * dailyRate;
                 const netPay = grossPay - deduction;
 
-                grossPayInput.value = grossPay.toFixed(2);
-                netPayInput.value = netPay.toFixed(2);
                 grossPayPreview.textContent = grossPay.toFixed(2);
                 netPayPreview.textContent = netPay.toFixed(2);
             }
